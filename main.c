@@ -7,6 +7,9 @@
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
 
+#define SCREEN_W 640
+#define SCREEN_H 480
+
 int main (int argc, char *argv[]){
 
 	const char* appname = "myGame";
@@ -17,10 +20,12 @@ int main (int argc, char *argv[]){
 	SDL_Renderer *renderer; 
 	bool done = false;
 
-	int check = SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+	int check = SDL_Init(SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	SDL_SetAppMetadata(appname, appversion, appidentifier);
 	
-	window = SDL_CreateWindow(appname, 640, 480, 0);
+	//Seperate init for Debug purposes
+	/*	
+	window = SDL_CreateWindow(appname, SCREEN_W, SCREEN_H, 0);
  	if (window == NULL) {
         	SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create window: %s\n", SDL_GetError());
         	SDL_Quit();
@@ -35,7 +40,12 @@ int main (int argc, char *argv[]){
 		SDL_Quit();
 		return 1;
 	}
-	
+	*/
+
+	if(!SDL_CreateWindowAndRenderer(appname,SCREEN_W ,SCREEN_H, 0, &window, &renderer)){
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create windoiw and renderer: %s", SDL_GetError());
+        return 3;
+	}
 	while(!done){
 		SDL_Event event;
 		while(SDL_PollEvent(&event)){
@@ -44,7 +54,7 @@ int main (int argc, char *argv[]){
 			}
 		}
 
-		SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255); 
+		SDL_SetRenderDrawColor(renderer, 100, 100, 20, 255); 
 		SDL_RenderClear(renderer);
 
 		
