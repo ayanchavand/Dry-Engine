@@ -21,3 +21,8 @@ bool Dry_RendererInitDefault(const Dry_AppInfo* app){
 	return Dry_RendererInit(app, DRY_DEFAULT_WINDOW_WIDTH, DRY_DEFAULT_WINDOW_HEIGHT);
 }
 
+void Dry_RendererShutdown(){
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+}
+
