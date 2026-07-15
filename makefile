@@ -1,6 +1,9 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -std=c23 -Iengine
+CFLAGS = -Wall -Wextra -std=c23 \
+          -Iengine \
+          -Icore \
+          -Imath
 
 LDFLAGS = -L/usr/lib -lSDL3
 
