@@ -5,11 +5,12 @@ CFLAGS = -Wall -Wextra -std=c23 \
           -Icore \
           -Imath
 
-LDFLAGS = -L/usr/lib -lSDL3
+LDFLAGS = -L/usr/lib -lSDL3 -lSDL3_image
 
 SRC = \
 	main.c \
-	engine/renderer.c
+	engine/renderer.c \
+	engine/texture.c
 
 OBJ = $(SRC:.c=.o)
 
