@@ -1,5 +1,4 @@
 #include "texture.h"
-#include <SDL3_image/SDL_image.h>
 
 SDL_Texture* Dry_LoadTexture(SDL_Renderer* renderer, const char* filepath) {
     // This executes at runtime when called, completely avoiding the compiler error
