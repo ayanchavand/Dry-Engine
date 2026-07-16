@@ -18,7 +18,7 @@ bool Dry_RendererInit(const Dry_AppInfo* app, int width, int height){
         	return false;
 	}
 
-	tex = load_my_image(renderer, "res/img/square.png");		
+	tex = Dry_LoadTexture(renderer, "res/img/square.png");		
 	return true;
 }
 
