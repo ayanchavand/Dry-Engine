@@ -1,11 +1,14 @@
 #include "renderer.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_render.h>
+#include "texture.h"
 
-static SDL_Window *window = NULL;
-static SDL_Renderer *renderer = NULL;
+static SDL_Window* window = NULL;
+static SDL_Renderer* renderer = NULL;
+static SDL_Texture* tex = NULL;
+SDL_FRect defult_rect = {100,100,10,10};
+//Default image test texture
 
-//Rect init
  
 bool Dry_RendererInit(const Dry_AppInfo* app, int width, int height){
 	
@@ -28,7 +31,7 @@ void Dry_RendererShutdown(){
 }
 
 void Dry_BeginFrame(){
-
+   	tex = load_my_image(renderer, "res/img/square.png");
 	SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255); 
 	SDL_RenderClear(renderer);
 }
@@ -38,9 +41,9 @@ void Dry_EndFrame(){
 	//Main Draw Call
 	SDL_SetRenderDrawColor(renderer, 100, 0, 20, 255); 
 	Dry_Color red = {0, 0, 255, 255};
-	Dry_DrawRect(100, 100, 100, 100, &red);
-	Dry_DrawRect(300, 300, 20, 50, &red);
-		
+	//Dry_DrawRect(100, 100, 100, 100, &red);
+	//Dry_DrawRect(300, 300, 20, 50, &red);
+ 	SDL_RenderTexture(renderer, tex, NULL, NULL);
 	//Final Draw
 	SDL_RenderPresent(renderer);
 }
