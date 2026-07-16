@@ -39,6 +39,7 @@ void Dry_EndFrame(){
 	SDL_SetRenderDrawColor(renderer, 100, 0, 20, 255); 
 	Dry_Color red = {0, 0, 255, 255};
 	Dry_DrawRect(100, 100, 100, 100, &red);
+	Dry_DrawRect(300, 300, 20, 50, &red);
 		
 	//Final Draw
 	SDL_RenderPresent(renderer);
