@@ -1,12 +1,14 @@
 #include "renderer.h"
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_render.h>
 #include "texture.h"
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 static SDL_Texture* tex = NULL;
+
+static Dry_Transform default_transform;
+
 SDL_FRect default_rect = {100,100,256,256};
+
 //Default image test texture
 
  
@@ -19,6 +21,9 @@ bool Dry_RendererInit(const Dry_AppInfo* app, int width, int height){
 	}
 
 	tex = Dry_LoadTexture(renderer, "res/img/square.png");		
+	
+	default_transform = Dry_Transform_Default();
+	
 	return true;
 }
 
@@ -44,10 +49,11 @@ void Dry_EndFrame(){
 	Dry_Color red = {0, 0, 255, 255};
 	//Dry_DrawRect(100, 100, 100, 100, &red);
 	//Dry_DrawRect(300, 300, 20, 50, &red);
- 	if (!SDL_RenderTexture(renderer, tex, NULL, &default_rect))
-{
-    SDL_Log("Render failed: %s", SDL_GetError());
-}	//Final Draw
+ //Final Draw
+	Dry_Transform_SetScale(&default_transform, (Dry_Vec2){1.0f, 1.0f});
+	Dry_DrawTexture(tex, &default_transform);
+	Dry_Transform_Translate(&default_transform, (Dry_Vec2){0.001f, 0.001f});
+ 	Dry_DrawTexture(tex, &default_transform);
 	SDL_RenderPresent(renderer);
 }
 void Dry_DrawRect(const int w, const int h, const int x, const int y, const Dry_Color* color){
@@ -55,4 +61,18 @@ void Dry_DrawRect(const int w, const int h, const int x, const int y, const Dry_
 	SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
 	SDL_RenderFillRect(renderer, &rect);	
 }
+void Dry_DrawTexture(SDL_Texture* tex,  Dry_Transform* transform)
+{
+   float w, h;
+SDL_GetTextureSize(tex, &w, &h);
 
+
+SDL_FRect dst = {
+    transform->position.x,
+    transform->position.y,
+    w * transform->scale.x,
+    h * transform->scale.y
+};
+
+SDL_RenderTexture(renderer, tex, NULL, &dst);
+}
