@@ -1,6 +1,12 @@
 #pragma once
+
 #include <stdbool.h>
+
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_render.h>
+
 #include "../core/color.h"
+#include "../core/transform.h"
 #define DRY_DEFAULT_WINDOW_WIDTH 640
 #define DRY_DEFAULT_WINDOW_HEIGHT 480
 
@@ -21,4 +27,6 @@ void Dry_EndFrame(void);
 
 //Draw CalLs
 void Dry_DrawRect(const int w,const int h, const int x, const int y, const Dry_Color* color);
+
+void Dry_DrawTexture(SDL_Texture* tex, Dry_Transform* tranform);
 
