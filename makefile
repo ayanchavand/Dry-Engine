@@ -1,16 +1,18 @@
 CC = gcc
 
 CFLAGS = -Wall -Wextra -std=c23 \
-          -Iengine \
-          -Icore \
-          -Imath
+	-Iengine \
+	-Icore \
+	-Imath
 
-LDFLAGS = -L/usr/lib -lSDL3 -lSDL3_image
+LDFLAGS = -lSDL3 -lSDL3_image -lm
 
 SRC = \
 	main.c \
 	engine/renderer.c \
-	engine/texture.c
+	engine/texture.c \
+	core/transform.c \
+	math/vec2.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -19,7 +21,7 @@ TARGET = dry
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(OBJ) $(LDFLAGS) -o $(TARGET)
+	$(CC) $(OBJ) $(LDFLAGS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -30,4 +32,6 @@ run: $(TARGET)
 clean:
 	rm -f $(OBJ) $(TARGET)
 
-.PHONY: all run clean
+rebuild: clean all
+
+.PHONY: all run clean rebuild
