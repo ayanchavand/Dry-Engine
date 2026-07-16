@@ -8,6 +8,12 @@ SDL_Texture* load_my_image(SDL_Renderer* renderer, const char* filepath) {
     if (!texture) {
         SDL_Log("Error loading %s: %s", filepath, SDL_GetError());
     }
+    else
+    {
+        float w, h;
+        SDL_GetTextureSize(texture, &w, &h);
+        SDL_Log("Texture size = %.0f x %.0f", w, h);
+    }
     
     return texture;
 }
