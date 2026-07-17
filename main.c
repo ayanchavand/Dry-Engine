@@ -3,8 +3,9 @@
 #include <SDL3/SDL_error.h>
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_init.h>
+#include <SDL3/SDL_log.h>
 #include "engine/renderer.h"
-
+#include "core/time.h"
 
 int main (int argc, char *argv[]){
 	/*
@@ -25,7 +26,7 @@ int main (int argc, char *argv[]){
 		    );
 	
 	Dry_RendererInitDefault(&app_data);
-
+	Dry_TimeInit();
 	//Seperate init for Debug purposes
 	/*	
 	window = SDL_CreateWindow(appname, SCREEN_W, SCREEN_H, 0);
@@ -47,7 +48,16 @@ int main (int argc, char *argv[]){
 	
 	
 
-		while(!done){
+	while(!done){
+		
+		Dry_TimeUpdate();
+
+		float dt = Dry_GetDeltaTime();
+
+if (dt > 0.0f)
+{
+    SDL_Log("FPS: %.2f", 1.0f / dt);
+}
 		SDL_Event event;
 		while(SDL_PollEvent(&event)){
 			if(event.type == SDL_EVENT_QUIT){
