@@ -12,6 +12,7 @@ SRC = \
 	engine/renderer.c \
 	engine/texture.c \
 	core/transform.c \
+	core/time.c \
 	math/vec2.c
 
 OBJ = $(SRC:.c=.o)
