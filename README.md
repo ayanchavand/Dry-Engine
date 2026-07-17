@@ -13,3 +13,31 @@ The primary goal of this project is to deepen my understanding of systems progra
 ## Project Philosophy
 
 This project is a learning exercise. All code is written manually without the use of agentic coding assistants or LLM-generated source code. Documentation and reference material may be consulted, but the implementation is intentionally developed by hand to maximize learning and understanding
+
+# Dry Engine Architecture
+
+![Architecture](docs/architecture.png)
+
+## Legend
+
+- **Solid Arrow** → Ownership / Contains
+- **Dashed Arrow** → Dependency / Uses
+
+## Modules
+
+### Core
+Contains foundational engine systems:
+- Time
+- Transform
+- Color
+- Input *(planned)*
+
+### Engine
+Contains rendering and engine-facing systems:
+- Renderer
+- Texture
+
+### Math
+Provides mathematical primitives used throughout the engine:
+- Vec2
+- Vec4
